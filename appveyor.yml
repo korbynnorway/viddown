@@ -1,0 +1,11 @@
+version: 1.0.{build}
+image: Ubuntu
+build_script:
+  - sudo apt-get install -y ffmpeg curl python3-pip
+  - pip3 install yt-dlp requests
+  - mkdir -p downloads
+  - cd downloads
+  - yt-dlp --format "best" --output "%(id)s.%(ext)s" --no-warnings --retries 3 --fragment-retries 3 "$VIDEO_URL"
+  - ls -la
+artifacts:
+  - path: downloads/
